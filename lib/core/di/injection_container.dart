@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,16 @@ Future<void> init() async {
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => Dio());
+  
+  sl.registerLazySingleton(() {
+    final dio = Dio();
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      logPrint: (obj) => debugPrint(obj.toString()),
+    ));
+    return dio;
+  });
 
   // Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());

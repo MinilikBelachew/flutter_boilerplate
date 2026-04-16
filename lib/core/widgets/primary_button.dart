@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_styles.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -24,7 +25,7 @@ class PrimaryButton extends StatelessWidget {
               ? Colors.black 
               : Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: AppRadius.borderRadiusL,
           ),
           elevation: 0,
         ),
